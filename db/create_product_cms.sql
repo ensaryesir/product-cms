@@ -23,12 +23,15 @@ CREATE TABLE IF NOT EXISTS product_details (
     product_id INT NOT NULL COMMENT 'Ürün kimlik numarası (foreign key)',
     product_code VARCHAR(255) NOT NULL COMMENT 'Ürün kodu (hem sayılar hem harfler içerebilir)',
     quantity INT NOT NULL COMMENT 'Ürün miktarı (0 ise "stokta yok" olarak listelenir)',
+    quantity_unit ENUM('pieces', 'kg', 'liters', 'packs') NOT NULL COMMENT 'Ürün miktar birimi',
     extra_discount DECIMAL(10, 2) COMMENT 'Sepet ekstra indirim oranı',
     tax_rate DECIMAL(5, 2) COMMENT 'Ürünün vergi oranı (%)',
-    sale_price DECIMAL(10, 2) COMMENT 'Satış fiyatı (TL, $, Euro)',
+    sale_price_tl DECIMAL(10, 2) COMMENT 'Satış fiyatı (TL)',
+    sale_price_usd DECIMAL(10, 2) COMMENT 'Satış fiyatı (USD)',
+    sale_price_eur DECIMAL(10, 2) COMMENT 'Satış fiyatı (EUR)',
     second_sale_price DECIMAL(10, 2) COMMENT 'İkinci satış fiyatı (sadece TL)',
     deduct_from_stock BOOLEAN DEFAULT TRUE COMMENT 'Ürün satıldığında stoktan düşme durumu',
-    status BOOLEAN DEFAULT TRUE COMMENT 'Ürün durumu (aktif veya pasif)',
+    status ENUM('active', 'inactive', 'pending') DEFAULT 'active' COMMENT 'Ürün durumu (aktif, pasif veya beklemede)',
     feature_section BOOLEAN DEFAULT TRUE COMMENT 'Özellik bölümünün gösterilme durumu',
     new_product_validity DATE COMMENT 'Yeni ürün geçerlilik süresi (tarih)',
     sort_order INT COMMENT 'Ürün sıralama numarası',
@@ -44,28 +47,22 @@ CREATE TABLE IF NOT EXISTS product_details (
 CREATE TABLE IF NOT EXISTS product_images (
     id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Otomatik artan benzersiz kimlik numarası',
     product_id INT NOT NULL COMMENT 'Ürün kimlik numarası (foreign key)',
-    image_data LONGBLOB NOT NULL COMMENT 'Resim verisi',
+    image_path VARCHAR(255) NOT NULL COMMENT 'Resim dosya yolu',
     image_type VARCHAR(50) NOT NULL COMMENT 'Resim dosya tipi (MIME type)',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Oluşturulma tarihi ve saati',
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 ) COMMENT='Ürün resimleri tablosu';
 
--- Müşteri grupları tablosu
-CREATE TABLE IF NOT EXISTS customer_groups (
-    id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Otomatik artan benzersiz kimlik numarası',
-    group_name VARCHAR(255) NOT NULL COMMENT 'Müşteri grubu adı',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Oluşturulma tarihi ve saati'
-) COMMENT='Müşteri grupları tablosu';
-
 -- İndirimler tablosu
 CREATE TABLE IF NOT EXISTS discounts (
     id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Otomatik artan benzersiz kimlik numarası',
-    customer_group_id INT NOT NULL COMMENT 'Müşteri grubu kimlik numarası (foreign key)',
+    product_id INT NOT NULL COMMENT 'Ürün kimlik numarası (foreign key)',
+    customer_group ENUM('regular', 'vip', 'wholesale') NOT NULL COMMENT 'Müşteri grubu',
     discount_type ENUM('percentage', 'fixed') NOT NULL COMMENT 'İndirim türü (yüzde veya sabit fiyat)',
     discount_value DECIMAL(10, 2) NOT NULL COMMENT 'İndirim değeri (yüzde oranı veya sabit fiyat)',
-    currency ENUM('TL', 'USD', 'EUR') COMMENT 'Para birimi (TL, Dolar, Euro)',
+    currency VARCHAR(3) COMMENT 'Para birimi (TL, USD, EUR)',
     start_date DATE NOT NULL COMMENT 'İndirim başlangıç tarihi',
     end_date DATE NOT NULL COMMENT 'İndirim bitiş tarihi',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Oluşturulma tarihi ve saati',
-    FOREIGN KEY (customer_group_id) REFERENCES customer_groups(id) ON DELETE CASCADE
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 ) COMMENT='İndirimler tablosu';

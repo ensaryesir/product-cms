@@ -9,11 +9,8 @@
 <div class="container">
     <h1>Welcome to Product CMS</h1>
     <div class="list-group">
-        <a href="<?php echo site_url('customer_group_controller'); ?>" class="list-group-item list-group-item-action">Manage Customer Groups</a>
-        <a href="<?php echo site_url('discount_controller'); ?>" class="list-group-item list-group-item-action">Manage Discounts</a>
-        <a href="<?php echo site_url('product_controller'); ?>" class="list-group-item list-group-item-action">Manage Products</a>
-        <a href="<?php echo site_url('product_detail_controller'); ?>" class="list-group-item list-group-item-action">Manage Product Details</a>
-        <a href="<?php echo site_url('product_image_controller'); ?>" class="list-group-item list-group-item-action">Manage Product Images</a>
+        <a href="<?php echo site_url('productcontroller/create'); ?>" class="list-group-item list-group-item-action">Create Product</a>
+        <a href="<?php echo site_url('productcontroller/index'); ?>" class="list-group-item list-group-item-action">List Products</a>
     </div>
 </div>
 </body>
