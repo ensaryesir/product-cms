@@ -30,7 +30,7 @@
     <div class="tab-content border border-top-0 p-4" id="productTabContent">
         <!-- General Tab -->
         <div class="tab-pane fade <?php echo (!isset($_GET['tab']) || $_GET['tab'] == 'general') ? 'show active' : ''; ?>" id="general" role="tabpanel">
-            <?php echo form_open('ProductController/create', ['id' => 'generalForm']); ?>
+            <?php echo form_open('ProductController/save', ['id' => 'generalForm']); ?>
             <input type="hidden" name="next_tab" id="next_tab_general" value="general">
                 <div class="form-group mb-3">
                     <label for="product_title" class="form-label">Product Title <span class="text-danger">*</span></label>
@@ -38,23 +38,23 @@
                 </div>
                 <div class="form-group mb-3">
                     <label for="product_additional_info_title" class="form-label">Additional Info Title</label>
-                    <input type="text" class="form-control" id="product_additional_info_title" name="product_additional_info_title">
+                    <input type="text" class="form-control" id="product_additional_info_title" name="product_additional_info_title" required>
                 </div>
                 <div class="form-group mb-3">
                     <label for="product_additional_info_description" class="form-label">Additional Info Description</label>
-                    <textarea class="form-control" id="product_additional_info_description" name="product_additional_info_description"></textarea>
+                    <textarea class="form-control" id="product_additional_info_description" name="product_additional_info_description" required></textarea>
                 </div>
                 <div class="form-group mb-3">
                     <label for="meta_title" class="form-label">Meta Title</label>
-                    <input type="text" class="form-control" id="meta_title" name="meta_title">
+                    <input type="text" class="form-control" id="meta_title" name="meta_title" required>
                 </div>
                 <div class="form-group mb-3">
                     <label for="meta_keywords" class="form-label">Meta Keywords</label>
-                    <textarea class="form-control" id="meta_keywords" name="meta_keywords"></textarea>
+                    <textarea class="form-control" id="meta_keywords" name="meta_keywords" required></textarea>
                 </div>
                 <div class="form-group mb-3">
                     <label for="meta_description" class="form-label">Meta Description</label>
-                    <textarea class="form-control" id="meta_description" name="meta_description"></textarea>
+                    <textarea class="form-control" id="meta_description" name="meta_description" required></textarea>
                 </div>
                 <div class="form-group mb-3">
                     <label for="seo_url" class="form-label">SEO URL</label>
@@ -63,11 +63,11 @@
                 </div>
                 <div class="form-group mb-3">
                     <label for="product_description" class="form-label">Product Description</label>
-                    <textarea class="form-control" id="product_description" name="product_description"></textarea>
+                    <textarea class="form-control" id="product_description" name="product_description" required></textarea>
                 </div>
                 <div class="form-group mb-3">
                     <label for="video_embed_code" class="form-label">Video Embed Code</label>
-                    <textarea class="form-control" id="video_embed_code" name="video_embed_code"></textarea>
+                    <textarea class="form-control" id="video_embed_code" name="video_embed_code" required></textarea>
                     <div class="form-text">Embed code from video sites like Vimeo, Google Video, YouTube, etc.</div>
                 </div>
                 <div class="mt-4">
@@ -79,7 +79,7 @@
 
         <!-- Details Tab -->
         <div class="tab-pane fade <?php echo (isset($_GET['tab']) && $_GET['tab'] == 'details') ? 'show active' : ''; ?>" id="details" role="tabpanel">
-            <?php echo form_open('ProductDetailController/create', ['id' => 'detailsForm']); ?>
+            <?php echo form_open('ProductDetailController/save', ['id' => 'detailsForm']); ?>
             <input type="hidden" name="next_tab" id="next_tab_details" value="details">
                 <div class="form-group mb-3">
                     <label for="product_code" class="form-label">Product Code</label>
@@ -104,7 +104,7 @@
                 <div class="form-group mb-3">
                     <label for="extra_discount" class="form-label">Extra Discount %</label>
                     <div class="input-group">
-                        <input list="discount_values" class="form-control" id="extra_discount" name="extra_discount" step="0.01">
+                        <input list="discount_values" class="form-control" id="extra_discount" name="extra_discount" step="0.01" required>
                         <datalist id="discount_values">
                             <option value="0">
                             <option value="5">
@@ -124,7 +124,7 @@
                 <div class="form-group mb-3">
                     <label for="tax_rate" class="form-label">Tax Rate</label>
                     <div class="input-group">
-                        <input list="tax_values" class="form-control" id="tax_rate" name="tax_rate" step="0.01">
+                        <input list="tax_values" class="form-control" id="tax_rate" name="tax_rate" step="0.01" required>
                         <datalist id="tax_values">
                             <option value="0">
                             <option value="1">
@@ -145,15 +145,15 @@
                 <div class="form-group mb-3">
                     <label for="sale_price" class="form-label">Sale Price</label>
                     <div class="input-group mb-2">
-                        <input type="number" step="0.01" class="form-control" id="sale_price_tl" name="sale_price_tl" placeholder="TL" oninput="convertCurrencyDetails('tl')">
+                        <input type="number" step="0.01" class="form-control" id="sale_price_tl" name="sale_price_tl" placeholder="TL" oninput="convertCurrencyDetails('tl')" required>
                         <span class="input-group-text">TL</span>
                     </div>
                     <div class="input-group mb-2">
-                        <input type="number" step="0.01" class="form-control" id="sale_price_usd" name="sale_price_usd" placeholder="USD" oninput="convertCurrencyDetails('usd')">
+                        <input type="number" step="0.01" class="form-control" id="sale_price_usd" name="sale_price_usd" placeholder="USD" oninput="convertCurrencyDetails('usd')" required>
                         <span class="input-group-text">USD</span>
                     </div>
                     <div class="input-group mb-2">
-                        <input type="number" step="0.01" class="form-control" id="sale_price_eur" name="sale_price_eur" placeholder="EUR" oninput="convertCurrencyDetails('eur')">
+                        <input type="number" step="0.01" class="form-control" id="sale_price_eur" name="sale_price_eur" placeholder="EUR" oninput="convertCurrencyDetails('eur')" required>
                         <span class="input-group-text">EUR</span>
                     </div>
                     <div class="form-text">The selling price of the product</div>
@@ -161,13 +161,13 @@
                 <div class="form-group mb-3">
                     <label for="second_sale_price" class="form-label">Second Sale Price</label>
                     <div class="input-group mb-2">
-                        <input type="number" step="0.01" class="form-control" id="second_sale_price" name="second_sale_price" placeholder="TL">
+                        <input type="number" step="0.01" class="form-control" id="second_sale_price" name="second_sale_price" placeholder="TL" required>
                         <span class="input-group-text">TL</span>
                     </div>
                 </div>
                 <div class="form-group mb-3">
                     <label for="deduct_from_stock" class="form-label">Deduct From Stock</label>
-                    <select class="form-select" id="deduct_from_stock" name="deduct_from_stock">
+                    <select class="form-select" id="deduct_from_stock" name="deduct_from_stock" required>
                         <option value="1" selected>Yes</option>
                         <option value="0">No</option>
                     </select>
@@ -175,7 +175,7 @@
                 </div>
                 <div class="form-group mb-3">
                     <label for="status" class="form-label">Status</label>
-                    <select class="form-select" id="status" name="status">
+                    <select class="form-select" id="status" name="status" required>
                         <option value="1" selected>Open</option>
                         <option value="0">Closed</option>
                     </select>
@@ -183,7 +183,7 @@
                 </div>
                 <div class="form-group mb-3">
                     <label for="feature_section" class="form-label">Feature Section</label>
-                    <select class="form-select" id="feature_section" name="feature_section">
+                    <select class="form-select" id="feature_section" name="feature_section" required>
                         <option value="1" selected>Show</option>
                         <option value="0">Don't Show</option>
                     </select>
@@ -191,36 +191,36 @@
                 </div>
                 <div class="form-group mb-3">
                     <label for="new_product_validity" class="form-label">New Product Validity</label>
-                    <input type="date" class="form-control" id="new_product_validity" name="new_product_validity">
+                    <input type="date" class="form-control" id="new_product_validity" name="new_product_validity" required>
                 </div>
                 <div class="form-group mb-3">
                     <label for="sort_order" class="form-label">Sort Order</label>
-                    <input type="number" class="form-control" id="sort_order" name="sort_order">
+                    <input type="number" class="form-control" id="sort_order" name="sort_order" required>
                 </div>
                 <div class="form-group mb-3">
                     <label for="show_on_homepage" class="form-label">Show on Homepage</label>
-                    <input type="number" class="form-control" id="show_on_homepage" name="show_on_homepage">
+                    <input type="number" class="form-control" id="show_on_homepage" name="show_on_homepage" required>
                     <div class="form-text">Enter the number to set the homepage sequence! 
                         If you enter a number greater than 0, it will appear on the homepage and take that order. 
                         If you enter 0, you will not see on the homepage</div>
                 </div>
                 <div class="form-group mb-3">
                     <label for="is_new" class="form-label">Is New</label>
-                    <select class="form-select" id="is_new" name="is_new">
+                    <select class="form-select" id="is_new" name="is_new" required>
                         <option value="1">Yes</option>
                         <option value="0">No</option>
                     </select>
                 </div>
                 <div class="form-group mb-3">
                     <label for="installment" class="form-label">Installment</label>
-                    <select class="form-select" id="installment" name="installment">
+                    <select class="form-select" id="installment" name="installment" required>
                         <option value="1">Yes</option>
                         <option value="0">No</option>
                     </select>
                 </div>
                 <div class="form-group mb-3">
                     <label for="warranty_period" class="form-label">Warranty Period</label>
-                    <input type="number" class="form-control" id="warranty_period" name="warranty_period">
+                    <input type="number" class="form-control" id="warranty_period" name="warranty_period" required>
                     <div class="form-text">Warranty period in the month given for the product</div>
                 </div>
                 <div class="mt-4">
@@ -255,12 +255,12 @@
 
         <!-- Discount Tab -->
         <div class="tab-pane fade <?php echo (isset($_GET['tab']) && $_GET['tab'] == 'discount') ? 'show active' : ''; ?>" id="discount" role="tabpanel">
-            <?php echo form_open('DiscountController/create', ['id' => 'discountForm']); ?>
+            <?php echo form_open('DiscountController/save', ['id' => 'discountForm']); ?>
             <input type="hidden" name="next_tab" id="next_tab_discount" value="discount">
             <input type="hidden" name="product_id" value="<?php echo isset($product_id) ? $product_id : ''; ?>">
             <div class="form-group mb-3">
                 <label for="customer_group" class="form-label">Customer Group</label>
-                <select class="form-control" id="customer_group" name="customer_group">
+                <select class="form-control" id="customer_group" name="customer_group" required>
                     <option value="regular">Regular</option>
                     <option value="vip">VIP</option>
                     <option value="wholesale">Wholesale</option>
@@ -268,11 +268,11 @@
             </div>
             <div class="form-group mb-3">
                 <label for="priority" class="form-label">Priority</label>
-                <input type="number" class="form-control" id="priority" name="priority" min="1">
+                <input type="number" class="form-control" id="priority" name="priority" min="1" required>
             </div>
             <div class="form-group mb-3">
                 <label for="discount_type" class="form-label">Discount Type</label>
-                <select class="form-control" id="discount_type" name="discount_type">
+                <select class="form-control" id="discount_type" name="discount_type" required>
                     <option value="percentage">Percentage</option>
                     <option value="fixed">Fixed</option>
                 </select>
@@ -280,8 +280,8 @@
             <div class="form-group mb-3">
                 <label for="discount_value_tl" class="form-label">Discount Value (TL)</label>
                 <div class="input-group mb-2">
-                    <input type="number" step="0.01" class="form-control" id="discount_value_tl" name="discount_value_tl" placeholder="TL" oninput="convertDiscountCurrency('tl')">
-                    <select class="form-select" id="discount_unit_tl" name="discount_unit_tl">
+                    <input type="number" step="0.01" class="form-control" id="discount_value_tl" name="discount_value_tl" placeholder="TL" oninput="convertDiscountCurrency('tl')" required>
+                    <select class="form-select" id="discount_unit_tl" name="discount_unit_tl" required>
                         <option value="percentage">%</option>
                         <option value="fixed">TL</option>
                     </select>
@@ -290,8 +290,8 @@
             <div class="form-group mb-3">
                 <label for="discount_value_usd" class="form-label">Discount Value (USD)</label>
                 <div class="input-group mb-2">
-                    <input type="number" step="0.01" class="form-control" id="discount_value_usd" name="discount_value_usd" placeholder="USD" oninput="convertDiscountCurrency('usd')">
-                    <select class="form-select" id="discount_unit_usd" name="discount_unit_usd">
+                    <input type="number" step="0.01" class="form-control" id="discount_value_usd" name="discount_value_usd" placeholder="USD" oninput="convertDiscountCurrency('usd')" required>
+                    <select class="form-select" id="discount_unit_usd" name="discount_unit_usd" required>
                         <option value="percentage">%</option>
                         <option value="fixed">USD</option>
                     </select>
@@ -300,8 +300,8 @@
             <div class="form-group mb-3">
                 <label for="discount_value_eur" class="form-label">Discount Value (EUR)</label>
                 <div class="input-group mb-2">
-                    <input type="number" step="0.01" class="form-control" id="discount_value_eur" name="discount_value_eur" placeholder="EUR" oninput="convertDiscountCurrency('eur')">
-                    <select class="form-select" id="discount_unit_eur" name="discount_unit_eur">
+                    <input type="number" step="0.01" class="form-control" id="discount_value_eur" name="discount_value_eur" placeholder="EUR" oninput="convertDiscountCurrency('eur')" required>
+                    <select class="form-select" id="discount_unit_eur" name="discount_unit_eur" required>
                         <option value="percentage">%</option>
                         <option value="fixed">EUR</option>
                     </select>
@@ -309,20 +309,12 @@
             </div>
             <div class="form-group mb-3">
                 <label for="start_date" class="form-label">Start Date</label>
-                <input type="date" class="form-control" id="start_date" name="start_date">
+                <input type="date" class="form-control" id="start_date" name="start_date" required>
             </div>
             <div class="form-group mb-3">
                 <label for="end_date" class="form-label">End Date</label>
-                <input type="date" class="form-control" id="end_date" name="end_date">
+                <input type="date" class="form-control" id="end_date" name="end_date" required>
             </div>
-            <!-- <div class="mt-4">
-                <button type="button" class="btn btn-success" onclick="addDiscount()">Add Discount</button>
-            </div>
-            <div class="mt-4">
-                <h5>Added Discounts</h5>
-                <ul id="discountList" class="list-group">
-                </ul>
-            </div> -->
             <div class="mt-4">
                 <button type="button" class="btn btn-success" onclick="saveDiscounts()">Save and Finish</button>
                 <a href="#" class="btn btn-danger" onclick="cancel()">Cancel</a>
@@ -422,7 +414,7 @@
         const form = document.getElementById('imageForm');
         const formData = new FormData(form);
 
-        fetch('<?php echo base_url('ProductImageController/upload'); ?>', {
+        fetch('<?php echo base_url('ProductImageController/save'); ?>', {
             method: 'POST',
             body: formData
         })
@@ -431,7 +423,7 @@
             if (data.success) {
                 // Fotoğraf başarıyla yüklendi, bir sonraki sekmeye geç
                 alert('Resim başarıyla yüklendi.');
-                window.location.replace('<?php echo base_url('ProductController/create?tab=discount'); ?>');
+                window.location.replace('<?php echo base_url('ProductController/save?tab=discount'); ?>');
             } else {
                 // Hata mesajını göster
                 alert('Yükleme hatası: ' + data.error);
@@ -440,29 +432,29 @@
     }
 
     function previewImage(event) {
-    const file = event.target.files[0];
-    if (file) {
-        // Dosya boyutunu kontrol et (örneğin, 1MB)
-        if (file.size > 1024 * 1024) {
-            alert('Dosya boyutu 1MB\'ı geçemez!');
-            clearImage();
-            return;
-        }
+        const file = event.target.files[0];
+        if (file) {
+            // Dosya boyutunu kontrol et (örneğin, 1MB)
+            if (file.size > 1024 * 1024) {
+                alert('Dosya boyutu 1MB\'ı geçemez!');
+                clearImage();
+                return;
+            }
 
-        const reader = new FileReader();
-        reader.onload = function() {
-            const output = document.getElementById('image_preview');
-            output.src = reader.result;
-            output.style.display = 'block';
-        };
-        reader.readAsDataURL(file);
-    }
+            const reader = new FileReader();
+            reader.onload = function() {
+                const output = document.getElementById('image_preview');
+                output.src = reader.result;
+                output.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
     }
 
     function clearImage() {
-    document.getElementById('imageForm').reset();
-    document.getElementById('image_preview').src = '#'; 
-    document.getElementById('image_preview').style.display = 'none'; 
+        document.getElementById('imageForm').reset();
+        document.getElementById('image_preview').src = '#'; 
+        document.getElementById('image_preview').style.display = 'none'; 
     }
 
 </script>
@@ -518,42 +510,12 @@
     // Fetch exchange rates when the page loads
     window.onload = fetchExchangeRatesDiscount;
 
-    function addDiscount() {
-        const form = document.getElementById('discountForm');
-        const formData = new FormData(form);
-        let discount = {};
-        formData.forEach((value, key) => {
-            discount[key] = value;
-        });
-        discounts.push(discount);
-        updateDiscountList();
-    }
-
-    function updateDiscountList() {
-        const discountList = document.getElementById('discountList');
-        discountList.innerHTML = '';
-        discounts.forEach((discount, index) => {
-            const listItem = document.createElement('li');
-            listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
-            listItem.innerHTML = `
-                ${discount.discount_type} - ${discount.discount_value_tl || discount.discount_value_usd || discount.discount_value_eur} ${discount.discount_unit_tl || discount.discount_unit_usd || discount.discount_unit_eur}
-                <button class="btn btn-danger btn-sm" onclick="removeDiscount(${index})">Remove</button>
-            `;
-            discountList.appendChild(listItem);
-        });
-    }
-
-    function removeDiscount(index) {
-        discounts.splice(index, 1);
-        updateDiscountList();
-    }
-
     function saveDiscounts() {
         const form = document.getElementById('discountForm');
         const formData = new FormData(form);
 
         // Send form data to the backend using fetch
-        fetch('<?php echo base_url('DiscountController/create'); ?>', {
+        fetch('<?php echo base_url('DiscountController/save'); ?>', {
             method: 'POST',
             body: formData
         })
