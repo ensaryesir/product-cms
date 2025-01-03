@@ -1,8 +1,8 @@
 <?php
 class ProductImage extends CI_Model {
     public function __construct() {
-        parent::__construct(); // CI_Model yapıcısını çağır
-        $this->load->database(); // Veritabanı bağlantısını yükle
+        parent::__construct();
+        $this->load->database();
     }
 
     /**
@@ -29,7 +29,7 @@ class ProductImage extends CI_Model {
      * @param string $file_path - Dosya yolu
      * @return string - MIME türü
      */
-    private function get_mime_type($file_path) {
+    public function get_mime_type($file_path) {
         $extension = strtolower(pathinfo($file_path, PATHINFO_EXTENSION));
         $mime_types = [
             'jpg' => 'image/jpeg',

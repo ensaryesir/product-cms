@@ -17,8 +17,11 @@ class ProductImageController extends CI_Controller {
     /**
      * Ürün resmi yükleme işlemi
      */
-    public function upload() {
+    public function save() {
         if ($this->input->post()) {
+            // Log the received data for debugging
+            log_message('debug', 'Received data: ' . print_r($this->input->post(), true));
+
             // Yükleme klasörü ve ayarları
             $upload_path = FCPATH . 'uploads/';
             $config['upload_path'] = $upload_path;
@@ -35,7 +38,7 @@ class ProductImageController extends CI_Controller {
                 $upload_data = $this->upload->data();
                 
                 // MIME türünü dosya uzantısından belirle
-                $image_type = $this->get_mime_type($upload_data['file_name']);
+                $image_type = $this->ProductImage->get_mime_type($upload_data['file_name']);
                 
                 // Veritabanına kaydedilecek veri
                 $data = array(
@@ -55,24 +58,5 @@ class ProductImageController extends CI_Controller {
         } else {
             echo json_encode(['success' => false, 'error' => 'No data received']);
         }
-    }
-
-    /**
-     * Dosya uzantısına göre MIME türünü belirler
-     * @param string $file_name - Dosya adı
-     * @return string - MIME türü
-     */
-    private function get_mime_type($file_name) {
-        $extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-        $mime_types = [
-            'jpg' => 'image/jpeg',
-            'jpeg' => 'image/jpeg',
-            'png' => 'image/png',
-            'gif' => 'image/gif',
-            'bmp' => 'image/bmp',
-            'webp' => 'image/webp',
-        ];
-
-        return isset($mime_types[$extension]) ? $mime_types[$extension] : 'application/octet-stream';
     }
 }
